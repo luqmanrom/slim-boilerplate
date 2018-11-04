@@ -14,21 +14,13 @@ class Controller
 
 	protected $db;
 
-	public function __construct()
+	private $container;
+
+	public function __construct($container)
 	{
-		$host = getenv('DB_HOST');
 
-		$username = getenv('DB_USER');
-
-		$password = getenv('DB_PASSWORD');
-
-		$database = getenv('DB_NAME');
-
-		$this->db = \ParagonIE\EasyDB\Factory::create(
-			"mysql:host=$host;dbname=$database",
-			$username,
-			$password
-		);
+		$this->container = $container;
+		$this->db = $this->container->db;
 	}
 
 }

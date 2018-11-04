@@ -17,3 +17,24 @@ $container['logger'] = function ($c) {
     $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
     return $logger;
 };
+
+
+$container['db'] = function($c) {
+
+	$host = getenv('DB_HOST');
+
+	$username = getenv('DB_USER');
+
+	$password = getenv('DB_PASSWORD');
+
+	$database = getenv('DB_NAME');
+
+	$db = \ParagonIE\EasyDB\Factory::create(
+		"mysql:host=$host;dbname=$database",
+		$username,
+		$password
+	);
+
+	return $db;
+
+};

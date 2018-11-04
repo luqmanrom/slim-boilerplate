@@ -13,7 +13,7 @@ class TaskController extends Controller
 
 	public function __construct($container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 		$this->container = $container;
 	}
 

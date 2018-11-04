@@ -38,7 +38,7 @@ $app->group('', function() {
 })
 	->add(new Tuupola\Middleware\JwtAuthentication([
 		"secret" => getenv('JWT_SECRET'),
-		"algorithm" => ["HS256", "HS384"],
+		"algorithm" => ["HS256"],
 		"attribute" => "token",
 		"relaxed" => ["127.0.0.1", "localhost"],
 		"logger" => $container["logger"],
@@ -47,11 +47,12 @@ $app->group('', function() {
 				'errors' => [
 					'msg' => 'Unauthorized'
 				]
-			], 400);
+			], 401);
 		},
 		"before" => function ($request, $arguments) use($container) {
 
 			$container["user"] = (array) $arguments['decoded']['users'];
+
 
 			$userRepository = new \App\Repositories\UserRepository();
 
@@ -60,9 +61,6 @@ $app->group('', function() {
 			$container['user'] = $user;
 
 		}
-
-
-
 	]));
 
 //	->add(BearerAuthMiddleware::class);

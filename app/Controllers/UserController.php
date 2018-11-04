@@ -10,9 +10,9 @@ use Tuupola\Base62;
 class UserController extends Controller
 {
 
-	public function __construct()
+	public function __construct($container)
 	{
-		parent::__construct();
+		parent::__construct($container);
 	}
 
 	public function postSignup($request, $response, $args) {
@@ -37,8 +37,8 @@ class UserController extends Controller
 			"iat" => $now->getTimeStamp(),
 			"exp" => $future->getTimeStamp(),
 			"jti" => $jti,
-			"scope" => $scopes,
-			"users" => $users
+			"users" => $users,
+			'scopes' => $scopes
 		];
 
 		$secret = getenv("JWT_SECRET");
